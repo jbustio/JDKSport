@@ -1,0 +1,70 @@
+<div layout="row" layout-margin>
+    <div flex-gt-xs="40">
+      <form [formGroup]="estadioForm" (ngSubmit)="addEstadio()">
+        <div class="form-container">
+          <input matInput [hidden]=true formControlName="_id" name="_id" required>
+          <mat-form-field>
+            <input matInput placeholder="Nombre del Estadio" formControlName="nombre" name="nombre" required>
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="Localidad" formControlName="localidad" name="localidad" required>
+            </mat-form-field>
+          <div>
+              <button mat-button (click)="resetForm(estadioForm)">Resetear</button>
+              <button mat-button>Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div flex-gt-xs="60">
+      <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+        <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+          <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-title">Estadios</span>
+          <span *ngIf="selectedRows.length && selectable" class="mat-body-1">0 item(s) selected</span>
+        </span>
+        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
+          flex>
+        </td-search-box>
+      </div>
+      <mat-divider></mat-divider>
+      <table td-data-table #dataTable>
+        <thead>
+          <tr td-data-table-column-row>
+            <th td-data-table-column *ngFor="let column of columns" [numeric]="column.numeric" [hidden]="column.hidden">
+              {{column.label}}
+            </th>
+            <th td-data-table-column>
+              <mat-icon>comment</mat-icon>
+              <span>Acciones</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr td-data-table-row *ngFor="let estadio of estadioService.estadios">
+            <td td-data-table-cell *ngFor="let column of columns" [numeric]="column.numeric" [hidden]="column.hidden">
+              {{column.format ? column.format(estadio[column.name]) : estadio[column.name]}}
+            </td>
+          
+            <td td-data-table-cell>
+              <button mat-button (click)="editEstadio(estadio)"><i class="material-icons">edit</i></button>
+              <button mat-button (click)="deleteEstadio(estadio._id, estadioForm)"><i class="material-icons">delete</i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+        <h3>No results to display.</h3>
+      </div>
+      <td-paging-bar #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)">
+        <span hide-xs>Rows per page:</span>
+        <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+          <mat-option *ngFor="let size of [50,100,200,500]" [value]="size">
+            {{size}}
+          </mat-option>
+        </mat-select>
+        {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+      </td-paging-bar>
+      <button mat-button (click)="consult()">Consult</button>
+    </div>
+  </div>

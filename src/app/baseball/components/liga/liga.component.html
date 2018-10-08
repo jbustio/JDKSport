@@ -1,0 +1,67 @@
+
+<div layout="row" layout-margin>
+  <div flex-gt-xs="40">
+      <div class="example-container">
+        <form #ligaForm="ngForm" (ngSubmit)="addLiga(ligaForm)">
+          <input matInput [hidden] = true name="_id" #_id="ngModel" [(ngModel)]="ligaService.selectedLiga._id">
+          <mat-form-field>
+              <input matInput name="name" #name="ngModel" [(ngModel)]="ligaService.selectedLiga.name" placeholder="Enter liga Name">
+          </mat-form-field>
+          <button mat-button (click)="resetForm(ligaForm)">Resetear</button>
+          <button mat-button >Salvar</button>
+        </form>
+      </div>  
+  </div>
+  <div flex-gt-xs="60">
+    <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+      <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+        <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-title">Ligas</span>
+        <span *ngIf="selectedRows.length && selectable" class="mat-body-1">0 item(s) selected</span>
+      </span>
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)" flex>
+      </td-search-box>
+    </div>
+    <mat-divider></mat-divider>
+    <table td-data-table #dataTable>
+        <thead>
+          <tr td-data-table-column-row>
+            <th td-data-table-column
+                *ngFor="let column of columns"
+                [numeric]="column.numeric"
+                [hidden]="column.hidden">
+              {{column.label}}
+            </th>
+            <th td-data-table-column>
+              <mat-icon>comment</mat-icon>
+              <span>Acciones</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr td-data-table-row *ngFor="let liga of ligaService.ligas">
+            <td td-data-table-cell *ngFor="let column of columns" [numeric]="column.numeric" [hidden]="column.hidden">
+              {{column.format ? column.format(liga[column.name]) : liga[column.name]}}
+            </td>
+            <td td-data-table-cell>
+              <button mat-button (click)="editLiga(liga)"><i class="material-icons">edit</i></button>
+              <button mat-button (click)="deleteLiga(liga._id, ligaForm)"><i class="material-icons">delete</i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+    <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+      <h3>No results to display.</h3>
+    </div>
+    <td-paging-bar #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)">
+      <span hide-xs>Rows per page:</span>
+      <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+        <mat-option *ngFor="let size of [50,100,200,500]" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
+  </div>
+</div>
+
