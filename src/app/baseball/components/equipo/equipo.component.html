@@ -7,6 +7,9 @@
           <input matInput placeholder="Nombre del Equipo" formControlName="name" name="name" required>
         </mat-form-field>
         <mat-form-field>
+            <input matInput placeholder="Diminutivo" formControlName="dim" name="dim" required>
+          </mat-form-field>
+        <mat-form-field>
           <mat-select [compareWith]="compareFn" placeholder="Ligas" formControlName="ligas" name="ligas" multiple>
             <mat-option *ngFor="let liga of ligaService.ligas" [value]="liga">{{liga.name}}</mat-option>
           </mat-select>

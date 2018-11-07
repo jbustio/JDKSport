@@ -1,0 +1,69 @@
+<mat-dialog-content [formGroup]="jugadorForm">
+  <div class="form-container">
+    <input matInput [hidden]=true formControlName="_id" name="_id" required>
+    <mat-form-field>
+      <input matInput placeholder="Nombre " formControlName="nombre" name="nombre" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [compareWith]="compareFn" placeholder="Equipos" formControlName="equipos" name="equipos" multiple>
+        <mat-option *ngFor="let equipo of equipoService.equipos" [value]="equipo">{{equipo.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-checkbox #jugadorCuadro placeholder="Numero " formControlName="jugadorCuadro" name="jugadorCuadro">Jugador
+      de Campo</mat-checkbox>
+    <mat-form-field>
+      <input matInput placeholder="Numero " formControlName="numero" name="numero" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [compareWith]="comparebs" placeholder="Posicion" formControlName="posicion" name="jugador" >
+        <mat-option *ngFor="let posicion of posiciones" [value]="posicion">{{posicion}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="jugadorForm.get('jugadorCuadro').value">
+      <mat-form-field>
+        <input matInput placeholder="Veces al Bate " formControlName="vb" name="vb" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="H " formControlName="h" name="h" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="HR " formControlName="hr" name="hr" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="CI " formControlName="ci" name="ci" required>
+      </mat-form-field>
+    </div>
+    <div *ngIf="!jugadorForm.get('jugadorCuadro').value">
+      <mat-form-field>
+        <input matInput placeholder="JG " formControlName="jg" name="jg" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="JP " formControlName="jp" name="jp" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="JS " formControlName="js" name="js" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="PCL " formControlName="pcl" name="pcl" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="INN " formControlName="inn" name="inn" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="K" formControlName="k" name="k" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Bases bolas " formControlName="bbola" name="bbola" required>
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">
+    Close
+  </button>
+  <button class="mat-raised-button mat-primary" (click)="save()">
+    Save
+  </button>
+
+</mat-dialog-actions>

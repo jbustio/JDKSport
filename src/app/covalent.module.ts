@@ -9,14 +9,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule} from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule} from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule} from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatChipsModule} from '@angular/material/chips';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 // (optional) Additional Covalent Modules imports
 import { CovalentHttpModule } from '@covalent/http';
@@ -31,18 +34,21 @@ import { CovalentPagingModule} from '@covalent/core/paging';
 
 @NgModule({
   imports: [
-    MatButtonModule,
-    MatCheckboxModule, 
     MatListModule, 
     MatToolbarModule, 
     MatIconModule,
-    MatInputModule, 
+    MatInputModule,
+    MatButtonModule, 
     MatCardModule, 
     MatChipsModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatMenuModule, 
     MatGridListModule, 
     MatSelectModule,
+    MatSlideToggleModule,
     MatTabsModule, 
     MatTooltipModule,
     CovalentLayoutModule,
@@ -56,18 +62,21 @@ import { CovalentPagingModule} from '@covalent/core/paging';
     CovalentPagingModule
   ],
   exports: [
-    MatButtonModule, 
-    MatCheckboxModule,
     MatListModule, 
     MatToolbarModule, 
     MatIconModule, 
     MatInputModule,
+    MatButtonModule, 
     MatCardModule, 
     MatChipsModule,
+    MatCheckboxModule,
+    MatDialogModule,
     MatFormFieldModule,
+    MatExpansionModule,
     MatMenuModule, 
     MatGridListModule, 
     MatSelectModule,
+    MatSlideToggleModule,
     MatTabsModule, 
     MatTooltipModule,
     CovalentLayoutModule,

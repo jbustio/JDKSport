@@ -5,36 +5,31 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from "@angular/forms";
+import { GenericTableModule } from '@angular-generic-table/core';
 
 import { CustomCovalentModule } from "./covalent.module";
 import { AppComponent } from './app.component';
 import { Routing } from "./app.routing";
-import { BoardComponent } from './baseball/components/board/board.component';
-import { LigaComponent } from './baseball/components/liga/liga.component';
-import { EquipoComponent } from './baseball/components/equipo/equipo.component';
-import { EstadioComponent } from './baseball/components/estadio/estadio.component';
-import { JugadorComponent } from './baseball/components/jugador/jugador.component';
-import { JuegoComponent } from './baseball/components/juego/juego.component';
+import { CoreModule } from './core/core.module';
+import { BaseballModule } from './baseball/baseball.module';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    BoardComponent,
-    LigaComponent,
-    EquipoComponent,
-    EstadioComponent,
-    JugadorComponent,
-    JuegoComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
+    CoreModule,
+    BaseballModule,
     BrowserAnimationsModule,
     CommonModule,
     CustomCovalentModule,
     HttpClientModule,
     FormsModule,
     Routing,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GenericTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -52,7 +52,6 @@ export class EstadioComponent implements OnInit {
     if(this.estadioForm.controls._id.value) {
       this.estadioService.putEstadio(this.estadioForm.value)
         .subscribe(res => {
-          this.resetForm(this.estadioForm);
           this.getEstadios();
          // M.toast({html: 'Updated Successfully'});
         });
@@ -60,7 +59,6 @@ export class EstadioComponent implements OnInit {
       this.estadioService.postEstadio(this.estadioForm.value)
       .subscribe(res => {
         this.getEstadios();
-        this.resetForm(this.estadioForm);
        // M.toast({html: 'Save successfully'});
       });
     }
@@ -82,12 +80,11 @@ export class EstadioComponent implements OnInit {
     this.estadioForm.setValue(equipo);
   }
 
-  deleteEstadio(_id: string, form: NgForm) {
+  deleteEstadio(_id: string) {
     if(confirm('Are you sure you want to delete it?')) {
       this.estadioService.deleteEstadio(_id)
         .subscribe(res => {
           this.getEstadios();
-          this.resetForm(form);
           //M.toast({html: 'Deleted Succesfully'});
         });
     }
@@ -100,12 +97,6 @@ export class EstadioComponent implements OnInit {
       });
   }
 
-  resetForm(form?: NgForm) {
-    if (form) {
-      form.reset();
-      this.estadioService.selectedEstadio = new Estadio();
-    }
-  }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;

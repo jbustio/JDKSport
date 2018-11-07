@@ -1,3 +1,125 @@
 mat-grid-tile {
     background: lightblue;
   }
+
+.red{
+    background-color: red;
+} 
+.panel-image-mini{
+  float: left;
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+}
+
+.control{
+  text-align: center;
+  float: left;
+
+}
+.cmpt_control{
+  clear: both;
+}
+
+
+.field{
+  height: 150px;
+  width: 150px;
+}
+.field-image{
+  width: 100%;
+}
+.base{
+  position:relative;
+  height:10%;
+  width:10%;
+  -webkit-transform: rotate(-45deg);
+  border:1px solid white;
+  background-color:white;
+  z-index: 1000;
+}
+#first-base{
+  top:-46%;
+  left:72%;
+}
+#second-base{
+  top:-80%;
+  left:44%;
+}
+#thrid-base{
+  top:-68%;
+  left:20%;
+}
+#home-plate{
+  position:relative;
+  height:10%;
+  width:10%;
+  top:-48%;
+  left:44%;
+  border:1px solid white;
+  background-color:white;
+}
+#home-plate:before, #home-plate:after{
+top: 100%;
+border: solid transparent;
+content: " ";
+height: 0;
+width: 0;
+position: absolute;
+pointer-events: none;
+}
+#home-plate:before{
+border-top-color:white;
+border-width: 4px;
+left: 60%;
+margin-left: -5px;
+}
+.home-plate-pulse {
+  /* Copy position attributes from #home-plate.
+     Needs to be separate to allow batters boxes to cover edges of home plate */
+   position:relative;
+  height:5%;
+  width:5%;
+  top:-25%;
+  left:47%;
+}
+
+.action-area{
+  position: relative;
+  z-index: 2000;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  margin: -50px;
+}
+
+.pulse {
+  z-index: 1000;
+  /*background: red;*/
+  border: 1px solid #999;
+  /*border-color: blue;*/
+  border-radius: 100%;
+  margin: -8px; /* -0.5 * baseWidth - baseBorder */
+  width: 27px; /*  2 * baseWidth + baseBorder */
+  height: 27px;
+  -webkit-animation: pulsate 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  animation: pulsate 1s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 0.0;
+}
+
+@-webkit-keyframes pulsate {
+  0% {-webkit-transform: scale(1.0, 1.0); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(2.0, 2.0); opacity: 0.0;}
+}
+@keyframes pulsate {
+  0% {-webkit-transform: scale(1.0, 1.0); opacity: 0.0;}
+  50% {opacity: 1.0;}
+  100% {-webkit-transform: scale(2.0, 2.0); opacity: 0.0;}
+}
+
+.mat-list .mat-list-item{
+ height: 48px;
+}

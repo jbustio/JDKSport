@@ -26,6 +26,14 @@ export class JugadorService {
     return this.http.get(this.URL_API);
   }
 
+  getJugadorPorID(jugadorID : string){
+    return this.http.get(this.URL_API + `/${jugadorID}` );
+  }
+  
+  getJugadoresPorEquipo(equipoID : string){
+    return this.http.get(this.URL_API + `/equipo/${equipoID}` );
+  }
+
   putJugador(jugador: Jugador) {
     return this.http.put(this.URL_API + `/${jugador._id}`, jugador);
   }

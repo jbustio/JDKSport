@@ -18,6 +18,7 @@ export class EquipoComponent implements OnInit {
   columns: ITdDataTableColumn[] = [
     { name:'_id', label: 'Id', hidden: true }, 
     { name: 'name',  label: 'Equipo', sortable: true},
+    { name: 'dim',  label: 'Diminutivo', sortable: true},
   ];
   equipoForm: FormGroup;
   data: any[];
@@ -37,7 +38,6 @@ export class EquipoComponent implements OnInit {
               private ligaService: LigaService,
               private equipoService: EquipoService, 
               private _dataTableService: TdDataTableService) { 
-
   }
 
   ngOnInit() {
@@ -45,6 +45,7 @@ export class EquipoComponent implements OnInit {
     this.equipoForm = this.formBuilder.group({
       _id: [],
       name: ['', Validators.required],
+      dim: ['', Validators.required],
       ligas: ['', Validators.required]
     });
   }
@@ -54,7 +55,6 @@ export class EquipoComponent implements OnInit {
     if(this.equipoForm.controls._id.value) {
       this.equipoService.putEquipo(this.equipoForm.value)
         .subscribe(res => {
-          this.resetForm(this.equipoForm);
           this.getEquipos();
          // M.toast({html: 'Updated Successfully'});
         });
@@ -62,7 +62,6 @@ export class EquipoComponent implements OnInit {
       this.equipoService.postEquipo(this.equipoForm.value)
       .subscribe(res => {
         this.getEquipos();
-        this.resetForm(this.equipoForm);
        // M.toast({html: 'Save successfully'});
       });
     }
@@ -72,9 +71,7 @@ export class EquipoComponent implements OnInit {
   getEquipos() {
     this.equipoService.getEquipos()
       .subscribe(res => {
-        console.log(res);
         this.equipoService.equipos = res;
-        console.log(this.equipoService.equipos);
         this.data= this.equipoService.equipos;
         this.filteredData = this.data;
         this.filteredTotal = this.data.length;
@@ -91,12 +88,11 @@ export class EquipoComponent implements OnInit {
     this.equipoForm.setValue(equipo);
   }
 
-  deleteEquipo(_id: string, form: NgForm) {
+  deleteEquipo(_id: string) {
     if(confirm('Are you sure you want to delete it?')) {
       this.equipoService.deleteEquipo(_id)
         .subscribe(res => {
           this.getEquipos();
-          this.resetForm(form);
           //M.toast({html: 'Deleted Succesfully'});
         });
     }
@@ -113,12 +109,6 @@ export class EquipoComponent implements OnInit {
     return liga1 && liga2 ? liga1._id === liga2._id : liga1 === liga2;
 }
 
-  resetForm(form?: NgForm) {
-    if (form) {
-      form.reset();
-      this.equipoService.selectedEquipo = new Equipo();
-    }
-  }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;

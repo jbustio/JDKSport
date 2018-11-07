@@ -14,8 +14,7 @@ import { Estadio } from '../../models/estadio';
 @Component({
   selector: 'app-juego',
   templateUrl: './juego.component.html',
-  styleUrls: ['./juego.component.css'],
-  providers: [ JuegoService ]
+  styleUrls: ['./juego.component.css']
 })
 export class JuegoComponent implements OnInit {
 
@@ -63,7 +62,6 @@ export class JuegoComponent implements OnInit {
     if(this.juegoForm.controls._id.value) {
       this.juegoService.putJuego(this.juegoForm.value)
         .subscribe(res => {
-          this.resetForm(this.juegoForm);
           this.getJuegos();
          // M.toast({html: 'Updated Successfully'});
         });
@@ -71,7 +69,6 @@ export class JuegoComponent implements OnInit {
       this.juegoService.postJuego(this.juegoForm.value)
       .subscribe(res => {
         this.getJuegos();
-        this.resetForm(this.juegoForm);
        // M.toast({html: 'Save successfully'});
       });
     }
@@ -105,17 +102,17 @@ export class JuegoComponent implements OnInit {
   }
 
   openBoard(juego:Juego){
+      console.log(juego._id);
       localStorage.removeItem("juegoId");
-      localStorage.setItem("juegoId", juego._id.toString());
+      localStorage.setItem("juegoId", juego._id);
       this.router.navigate(['board']);
   } 
 
-  deleteJuego(_id: string, form: NgForm) {
+  deleteJuego(_id: string) {
     if(confirm('Are you sure you want to delete it?')) {
       this.juegoService.deleteJuego(_id)
         .subscribe(res => {
           this.getJuegos();
-          this.resetForm(form);
           //M.toast({html: 'Deleted Succesfully'});
         });
     }
@@ -125,13 +122,6 @@ export class JuegoComponent implements OnInit {
   compareFn(obj1: any, obj2: any) {
     return obj1 && obj2 ? obj1._id === obj2._id : obj1 === obj2;
 }
-
-  resetForm(form?: NgForm) {
-    if (form) {
-      form.reset();
-      this.juegoService.selectedJuego = new Juego();
-    }
-  }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;

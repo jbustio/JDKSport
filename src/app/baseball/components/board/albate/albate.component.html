@@ -1,0 +1,159 @@
+<mat-card-subtitle>Al bates</mat-card-subtitle>
+<mat-divider></mat-divider>
+<mat-card-content>
+  <mat-list>
+    <mat-list-item>
+      <p mat-line>1 Nombre Bateador</p>
+    </mat-list-item>
+    <mat-list-item>
+      <p mat-line>2 Nombre Bateador</p>
+    </mat-list-item>
+    <mat-list-item>
+      <h4 mat-line>3 Nombre Bateador</h4>
+    </mat-list-item>
+  </mat-list>
+</mat-card-content>
+<mat-divider></mat-divider>
+<mat-card-actions>
+  <a mat-button color="accent" class="text-upper" (click)="runMacro('5')">
+    <span>Mostrar</span>
+  </a>
+</mat-card-actions>
+
+
+<mat-card flex-gt-sm="30">
+  <mat-card-subtitle>Equipo Home {{juegoService.selectedJuego}}</mat-card-subtitle>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <table td-data-table>
+      <thead>
+        <tr td-data-table-column-row>
+          <th td-data-table-column *ngFor="let column of columns" [numeric]="column.numeric">
+            {{column.label}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr td-data-table-row *ngFor="let row of basicData">
+          <td td-data-table-cell *ngFor="let column of columns" [numeric]="column.numeric">
+            {{column.format ? column.format(row[column.name]) : row[column.name]}}
+          </td>
+          <td td-data-table-cell (click)="openPrompt(row, 'comments')">
+            <button mat-button [class.mat-accent]="!row['comments']">{{row['comments'] || 'Add Comment'}}</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <a mat-button color="accent" class="text-upper" (click)="runMacro('3')">
+      <span>Campo</span>
+    </a>
+    <a mat-button color="accent" class="text-upper" (click)="runMacro('2')">
+      <span>Alineacion</span>
+    </a>
+  </mat-card-actions>
+</mat-card>
+<mat-card flex-gt-sm="40">
+  <mat-card-subtitle>Operaciones</mat-card-subtitle>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    card content
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <a mat-button color="accent" class="text-upper">
+      <span>Mostrar</span>
+    </a>
+  </mat-card-actions>
+</mat-card>
+<mat-card flex-gt-sm="30">
+  <mat-card-subtitle>Equipo Visitador</mat-card-subtitle>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    card content
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <a mat-button color="accent" class="text-upper" (click)="runMacro('3')">
+      <span>Campo</span>
+    </a>
+    <a mat-button color="accent" class="text-upper" (click)="runMacro('2')">
+      <span>Alineacion</span>
+    </a>
+  </mat-card-actions>
+</mat-card>
+<mat-card-subtitle>Pizarra</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-grid-list cols="5" rrowHeight="50px">
+        <mat-grid-tile [colspan]="1" [rowspan]="2">1</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">3</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="2">4</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <a mat-button color="accent" class="text-upper" (click)="runMacro('11')">
+        <span>Mostrar</span>
+      </a>
+    </mat-card-actions>
+
+
+    <mat-card-subtitle>Marcador Juego</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-grid-list cols="14" rowHeight="50px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">1</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">3</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">4</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">1</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="2">3</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">4</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="2">8</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">1</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">3</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">4</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+      <a mat-button color="accent" class="text-upper" (click)="runMacro('10')">
+        <span>Mostrar</span>
+      </a>
+    </mat-card-actions>
+
+
+    <mat-card-subtitle>Lanzador</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      card content
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button color="accent" class="text-upper" (click)="runMacro('7')">
+        <span>Mostrar</span>
+      </a>
+    </mat-card-actions>

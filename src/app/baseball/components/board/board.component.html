@@ -1,166 +1,530 @@
 <div layout-gt-sm="row" tdMediaToggle="gt-xs">
-  <mat-card flex-gt-sm="15">
-    <mat-card-subtitle>Al bates</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      <mat-list>
-        <mat-list-item>
-          <p mat-line>1 Nombre Bateador</p>
-        </mat-list-item>
-        <mat-list-item>
-          <p mat-line>2 Nombre Bateador</p>
-        </mat-list-item>
-        <mat-list-item>
-          <h4 mat-line>3 Nombre Bateador</h4>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('5')">
-        <span>Mostrar</span>
-      </a>
-    </mat-card-actions>
-  </mat-card>
   <mat-card flex-gt-sm="50">
-    <mat-card-subtitle>Marcador Juego</mat-card-subtitle>
-    <mat-divider></mat-divider>
     <mat-card-content>
-      <mat-grid-list cols="14" rowHeight="50px">
-        <mat-grid-tile [colspan]="1" [rowspan]="1">1</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">3</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">4</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">1</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="2">3</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">4</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="2">8</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">1</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">3</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">4</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
-      </mat-grid-list>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('10')">
-        <span>Mostrar</span>
-      </a>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card flex-gt-sm="15">
-    <mat-card-subtitle>Lanzador</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      card content
-    </mat-card-content>
-    <mat-card-actions>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('7')">
-        <span>Mostrar</span>
-      </a>
-    </mat-card-actions>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="juego.partInn===0">
+          <mat-expansion-panel-header> 
+            <mat-list>
+              <mat-list-item>
+                <img mat-list-icon src="assets/img/pelota/Logos/{{juego.equipov.dim}}.png" alt="" />
+                <h3 mat-line>Visitador</h3>
+                <p mat-line> {{juego.equipov.name}} </p>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel-header>
+          <mat-tab-group>
+            <mat-tab label="Alineacion">
+              <mat-list>
+                <mat-list-item *ngFor="let jugador of juego.rosterv;let indice=index">
+                  <img mat-list-icon src="assets/img/pelota/Logos/{{juego.equipov.dim}}.png" alt="" />
+                  <h3 mat-line>{{jugador.nombre}}</h3>
+                  <p *ngIf="jugador.jugadorCuadro" mat-line><span>VB: {{jugador.vb}}</span><span> H: {{jugador.h}}</span><span> HR: {{jugador.hr}}</span><span> CI: {{jugador.ci}}</span></p>
+                  <p *ngIf="!jugador.jugadorCuadro" mat-line><span>JG: {{jugador.jg}}</span><span> JP: {{jugador.jp}}</span><span> JS: {{jugador.js}}</span><span> PCL: {{jugador.pcl}}</span><span> K: {{jugador.k}}</span><span> BB: {{jugador.bbola}}</span></p> 
+                  <p *ngIf="jugador.jugadorCuadro"><span>AVG: {{jugador.avg}}</span></p>
+                  <button mat-button (click)="editJugadorRoster(jugador,juego.equipov,indice,true)"><i class="material-icons">edit</i></button>
+                </mat-list-item>
+              </mat-list>
+            </mat-tab>
+            <mat-tab label="Bateadores">
+              <mat-list>
+                <mat-list-item>
+                  <button mat-list-icon mat-icon-button>
+                    <mat-icon>folder</mat-icon>
+                  </button>
+                  <h4 mat-line>A. Mayeta</h4>
+                  <p mat-line> Bateador </p>
+                  <button mat-button>Edit</button>
+                </mat-list-item>
 
-  </mat-card>
-  <mat-card flex-gt-sm="20">
-    <mat-card-subtitle>Pizarra</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      <mat-grid-list cols="5" rrowHeight="50px">
-        <mat-grid-tile [colspan]="1" [rowspan]="2">1</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">2</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">3</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="2">4</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">5</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">6</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">7</mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">8</mat-grid-tile>
-      </mat-grid-list>
+              </mat-list>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="juego.partInn===1">
+          <mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item>
+                <img mat-list-icon src="assets/img/pelota/Logos/{{juego.equipoh.dim}}.png" alt="" />
+                <h4 mat-line>Home</h4>
+                <p mat-line> {{juego.equipoh.name}} </p>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel-header>
+          <mat-tab-group>
+              <mat-tab label="Alineacion">
+                  <mat-list>
+                      <mat-list-item *ngFor="let jugador of juego.rosterh;let indice=index">
+                        <img mat-list-icon src="assets/img/pelota/Logos/{{juego.equipoh.dim}}.png" alt="" />
+                        <h3 mat-line>{{jugador.nombre}}</h3>
+                        <p mat-line><span>VB: {{jugador.vb}}</span><span> H: {{jugador.h}}</span><span> HR: {{jugador.hr}}</span><span> CI: {{jugador.ci}}</span></p>
+                        <p><span>AVG: {{jugador.avg}}</span></p>
+                        <button mat-button (click)="editJugadorRoster(jugador,juego.equipoh,indice,false)"><i class="material-icons">edit</i></button>
+                      </mat-list-item>
+                    </mat-list>
+              </mat-tab>
+              <mat-tab label="Bateadores">
+                <mat-list>
+  
+                  <mat-list-item>
+                    <button mat-list-icon mat-icon-button>
+                      <mat-icon>folder</mat-icon>
+                    </button>
+                    <h4 mat-line>A. Mayeta</h4>
+                    <p mat-line> Bateador </p>
+                    <button mat-button>Edit</button>
+                  </mat-list-item>
+  
+                </mat-list>
+              </mat-tab>
+            </mat-tab-group>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item>
+                <mat-icon>icon</mat-icon>
+                <h3 mat-line>Arbitros</h3>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item>
+                <mat-icon>icon</mat-icon>
+                <h3 mat-line>Comentaristas</h3>
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="label" value="value">
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('11')">
-        <span>Mostrar</span>
-      </a>
-    </mat-card-actions>
   </mat-card>
-</div>
-<div layout-gt-sm="row" tdMediaToggle="gt-xs">
-  <mat-card flex-gt-sm="30">
-    <mat-card-subtitle>Equipo Home {{juegoService.selectedJuego}}</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      <table td-data-table>
-        <thead>
-          <tr td-data-table-column-row>
-            <th td-data-table-column *ngFor="let column of columns" [numeric]="column.numeric">
-              {{column.label}}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr td-data-table-row *ngFor="let row of basicData">
-            <td td-data-table-cell *ngFor="let column of columns" [numeric]="column.numeric">
-              {{column.format ? column.format(row[column.name]) : row[column.name]}}
-            </td>
-            <td td-data-table-cell (click)="openPrompt(row, 'comments')">
-              <button mat-button [class.mat-accent]="!row['comments']">{{row['comments'] || 'Add Comment'}}</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('3')">
-        <span>Campo</span>
-      </a>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('2')">
-        <span>Alineacion</span>
-      </a>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card flex-gt-sm="40">
-    <mat-card-subtitle>Operaciones</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      card content
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <a mat-button color="accent" class="text-upper" [routerLink]="['/']">
-        <span>Mostrar</span>
-      </a>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card flex-gt-sm="30">
-    <mat-card-subtitle>Equipo Visitador</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      card content
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('3')">
-        <span>Campo</span>
-      </a>
-      <a mat-button color="accent" class="text-upper" (click)="showlayer('2')">
-        <span>Alineacion</span>
-      </a>
-    </mat-card-actions>
-  </mat-card>
+  <div flex-gt-sm="50">
+    <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+      <mat-card flex-gt-sm="70">
+        <mat-card-content>
+          <div id='ctr_Strike' class="control">
+            <table class="table datatable_simple">
+              <thead>
+                <tr>
+                  <th>Equipo</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {{juego.equipov.dim}}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    {{juego.equipoh.dim}}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id='ctr_Strike'>
+            <table class="table datatable_simple">
+              <thead>
+                <tr>
+                  <th>C</th>
+                  <th>H</th>
+                  <th>E</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    {{juego.carrerasv}}
+                  </td>
+                  <td>
+                    {{juego.hitv}}
+                  </td>
+                  <td>
+                    {{juego.errorv}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    {{juego.carrerash}}
+                  </td>
+                  <td>
+                    {{juego.hith}}
+                  </td>
+                  <td>
+                    {{juego.errorh}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Mostrar</button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-card flex-gt-sm="30">
+        <mat-card-content>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td rowspan="2" class="align-middle">
+                  <img src="assets/img/pelota/Logos/TR.jpg" alt="" class="panel-image-mini" />
+                </td>
+                <td><img src="assets/img/pelota/Logos/{{juego.equipov.dim}}.png" alt="" class="panel-image-mini" /></td>
+                <td>
+                  {{juego.carrerasv}}
+                </td>
+                <td rowspan="2">
+                  <div [hidden]="juego.partInn==0">
+                    <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('pi')">keyboard_arrow_down</mat-icon>
+                  </div>
+                  <div [hidden]="juego.partInn==1">
+                    <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('pi')">keyboard_arrow_up</mat-icon>
+                  </div>
+                  <div>
+                    {{juego.inn}}
+                  </div>
+
+                </td>
+                <td colspan="2">
+                  {{juego.bolas}}-{{juego.strike}}
+                </td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/pelota/Logos/{{juego.equipoh.dim}}.png" alt="" class="panel-image-mini" /></td>
+                <td>
+                  {{juego.carrerash}}
+                </td>
+                <td colspan="2">
+                  <div *ngIf="juego.partInn==0">
+                    P-{{juego.lanzamientosh}}
+                  </div>
+                  <div *ngIf="juego.partInn==1">
+                    P-{{juego.lanzamientosv}}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Mostrar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+      <mat-card flex-gt-sm="50">
+        <mat-card-content>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <div id='ctr_Strike' class="control">
+              <h3>B</h3>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('b')">add</mat-icon>
+                </button>
+              </div>
+              <div>
+                <span>{{juego.bolas}}</span>
+              </div>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Example icon-button with a heart icon" (click)="decrementarValor('b')">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div id='ctr_Bolas' class="control">
+              <h3>S</h3>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('s')">add</mat-icon>
+                </button>
+              </div>
+              <div>
+                <span>{{juego.strike}}</span>
+              </div>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Example icon-button with a heart icon" (click)="decrementarValor('s')">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div id='ctr_Out' class="control">
+              <h3>O</h3>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('o')">add</mat-icon>
+                </button>
+              </div>
+              <div>
+                <span>{{juego.out}}</span>
+              </div>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Example icon-button with a heart icon" (click)="decrementarValor('o')">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div id='ctr_lanz' class="control">
+              <h3>L</h3>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('l')">add</mat-icon>
+                </button>
+              </div>
+                <div *ngIf="juego.partInn==0">
+                  <span>{{juego.lanzamientosh}}</span>
+                </div>
+                <div *ngIf="juego.partInn==1">
+                  <span>{{juego.lanzamientosv}}</span>
+                </div>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Example icon-button with a heart icon" (click)="decrementarValor('l')">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div id='ctr_Carreras' class="control">
+              <h3>C</h3>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('c')">add</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="juego.partInn == 0">
+                <span>{{juego.carrerasv}}</span>
+              </div>
+              <div *ngIf="juego.partInn == 1">
+                <span>{{juego.carrerash}}</span>
+              </div>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Example icon-button with a heart icon" (click)="decrementarValor('c')">remove</mat-icon>
+                </button>
+              </div>
+            </div>           
+            <div id='ctr_hit' class="control">
+              <h3>H</h3>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Adicionar Hit" (click)="incrementarValor('h')">add</mat-icon>
+                </button>
+              </div>
+              <div>
+                <div *ngIf="juego.partInn == 0">
+                  <span>{{juego.hitv}}</span>
+                </div>
+                <div *ngIf="juego.partInn == 1">
+                  <span>{{juego.hith}}</span>
+                </div>
+              </div>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Decrementar Valor" (click)="decrementarValor('h')">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div id='ctr_Errores' class="control">
+              <h3>E</h3>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Adicionar Out" (click)="incrementarValor('e')">add</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="juego.partInn == 1">
+                <span>{{juego.errorv}}</span>
+              </div>
+              <div *ngIf="juego.partInn == 0">
+                <span>{{juego.errorh}}</span>
+              </div>
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Example icon-button with a heart icon" (click)="decrementarValor('e')">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <div class="field">
+              <img class="field-image" src="assets/img/pelota/terreno.png">
+              <div id="first-base" class="base" [ngStyle]="{'backgroundColor': juego.corredorPB ? 'red' : 'white' }"
+                (click)="posicionEnBase('pb')">
+              </div>
+              <div id="second-base" class="base" [ngStyle]="{'backgroundColor': juego.corredorSB ? 'red' : 'white' }"
+                (click)="posicionEnBase('sb')">
+
+              </div>
+              <div id="thrid-base" class="base" [ngStyle]="{'backgroundColor': juego.corredorTB ? 'red' : 'white' }"
+                (click)="posicionEnBase('tb')">
+              </div>
+              <div id="home-plate" ng-click="incrementC()">
+
+              </div>
+            </div>
+            <div id='ctr_Tipohit' class="control">
+              <div>
+                <button mat-mini-fab color="primary" (click)="incrementarValor('h')">H</button>
+              </div>
+              <div>
+                <button mat-mini-fab color="primary" (click)="incrementarValor('hh')">2B</button>
+              </div>
+              <div>
+                <button mat-mini-fab color="primary" (click)="incrementarValor('hhh')">3B</button>
+              </div>
+              <div>
+                <button mat-mini-fab color="primary" (click)="incrementarValor('hhhh')">HR</button>
+              </div>
+            </div>
+            <div id='ctr_Tipohit' class="control">
+              <div>
+                <button mat-mini-fab color="primary" (click)="incrementarValor('d')">DB</button>
+              </div>
+              <div>
+                <button mat-mini-fab color="primary" (click)="incrementarValor('sc')">SC</button>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card flex-gt-sm="50">
+        <mat-card-content>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <mat-select placeholder="Placeholder" [(ngModel)]="ac1" name="item">
+              <mat-option *ngFor="let item of dekoGr" [value]="item.id">
+                {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            <mat-slide-toggle name="t1" (change)="showGr(ac1,$event)" [checked]="toggleAct==='t1'"></mat-slide-toggle>
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <mat-select placeholder="Placeholder" [(ngModel)]="ac2" name="item">
+              <mat-option *ngFor="let item of dekoGr" [value]="item.id">
+                {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            <mat-slide-toggle name="t2" (change)="showGr(ac2,$event)" [checked]="toggleAct==='t2'"></mat-slide-toggle>
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <mat-select placeholder="Placeholder" [(ngModel)]="ac3" name="item">
+              <mat-option *ngFor="let item of dekoGr" [value]="item.id">
+                {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            <mat-slide-toggle name="t3" (change)="showGr(ac3,$event)" [checked]="toggleAct==='t3'"></mat-slide-toggle>
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <mat-select placeholder="Placeholder" [(ngModel)]="ac4" name="item">
+              <mat-option *ngFor="let item of dekoGr" [value]="item.id">
+                {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            <mat-slide-toggle name="t4" (change)="showGr(ac4,$event)" [checked]="toggleAct==='t4'"></mat-slide-toggle>
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <mat-select placeholder="Placeholder" [(ngModel)]="ac5" name="item">
+              <mat-option *ngFor="let item of dekoGr" [value]="item.id">
+                {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            <mat-slide-toggle name="t5" (change)="showGr(ac5,$event)" [checked]="toggleAct==='t5'"></mat-slide-toggle>
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+            <mat-select placeholder="Placeholder" [(ngModel)]="ac6" name="item">
+              <mat-option *ngFor="let item of dekoGr" [value]="item.id">
+                {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            <mat-slide-toggle name="t6" (change)="showGr(ac6,$event)" [checked]="toggleAct==='t6'"></mat-slide-toggle>
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+           <button mat-button (click)="CambiarPantalla('preview')">Preview</button>   
+           <button mat-button (click)="CambiarPantalla('program')">Program</button>   
+          </div>
+          <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+           <button mat-button (click)="initData()">Cargar Data</button>   
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div layout-gt-sm="row" tdMediaToggle="gt-xs">
+      <mat-card flex-gt-sm="50">
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item >
+              <img mat-list-icon src="" alt="" />
+              <h3 mat-line>{{bateadorEnturno.nombre}}</h3>
+              <p mat-line><span>VB: {{bateadorEnturno.vb}}</span><span> H: {{bateadorEnturno.h}}</span><span> HR: {{bateadorEnturno.hr}}</span><span> CI: {{bateadorEnturno.ci}}</span></p>
+              <p><span>AVG: {{bateadorEnturno.avg}}</span></p>
+            </mat-list-item> 
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-icon-button>
+            <mat-icon aria-label="Cambiar Bateador" (click)="cambiarBateador()">add</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon aria-label="Bateador menos" (click)="decrementarBateador()">remove</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card> 
+      <mat-card flex-gt-sm="50">
+        <mat-card-content >
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

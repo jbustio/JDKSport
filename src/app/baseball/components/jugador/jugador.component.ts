@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms'
+import { NgForm } from '@angular/forms'
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { JugadorDialogComponent } from "./jugador-dialog/jugador-dialog.component";
 
 import { Router } from "@angular/router";
 import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core/data-table';
@@ -21,7 +23,8 @@ export class JugadorComponent implements OnInit {
   columns: ITdDataTableColumn[] = [
     { name: '_id', label: 'Id', hidden: true },
     { name: 'numero', label: '#', sortable: true },
-    { name: 'nombre', label: 'Equipo Home', sortable: true }
+    { name: 'nombre', label: 'nombre', sortable: true },
+    { name: 'avg', label: 'Avg', sortable: true },
 
   ];
   jugadorForm: FormGroup;
@@ -39,6 +42,7 @@ export class JugadorComponent implements OnInit {
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
   constructor(private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     private equipoService: EquipoService,
     private jugadorService: JugadorService,
     private _dataTableService: TdDataTableService,
@@ -55,9 +59,10 @@ export class JugadorComponent implements OnInit {
       equipos: ['', Validators.required],
       jugadorCuadro: ['', Validators.required],
       h: ['', Validators.required],
-      bbate: ['', Validators.required],
+      vb: ['', Validators.required],
       hr: ['', Validators.required],
       ci: ['', Validators.required],
+      avg: ['', Validators.required],
       jg: ['', Validators.required],
       jp: ['', Validators.required],
       js: ['', Validators.required],
@@ -68,20 +73,17 @@ export class JugadorComponent implements OnInit {
     });
   }
 
-  addJugador() {
-    console.log(this.jugadorForm.value);
-    if (this.jugadorForm.controls._id.value) {
-      this.jugadorService.putJugador(this.jugadorForm.value)
+  addJugador(valor: any) {
+    if (valor && valor._id) {
+      this.jugadorService.putJugador(valor)
         .subscribe(res => {
-          this.jugadorForm.reset();
           this.getJugadores();
           // M.toast({html: 'Updated Successfully'});
         });
     } else {
-      this.jugadorService.postJugador(this.jugadorForm.value)
+      this.jugadorService.postJugador(valor)
         .subscribe(res => {
           this.getJugadores();
-          this.jugadorForm.reset();
           // M.toast({html: 'Save successfully'});
         });
     }
@@ -91,9 +93,7 @@ export class JugadorComponent implements OnInit {
   getJugadores() {
     this.jugadorService.getJugadores()
       .subscribe(res => {
-        console.log(res);
         this.jugadorService.jugadores = res as Jugador[];
-        console.log(this.jugadorService.jugadores);
         this.data = this.jugadorService.jugadores;
         this.filteredData = this.data;
         this.filteredTotal = this.data.length;
@@ -106,10 +106,23 @@ export class JugadorComponent implements OnInit {
 
   }
 
-  editJugador(jugador: Jugador) {
-    console.log(jugador);
-    this.jugadorService.selectedJugador = jugador;
-    this.jugadorForm.setValue(jugador);
+  editJugador(jugador:Jugador) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    if (jugador){
+      dialogConfig.data = jugador;
+    }else{
+      dialogConfig.data  = new Jugador();
+    }
+    
+    const dialogRef = this.dialog.open(JugadorDialogComponent,
+      dialogConfig);
+
+
+    dialogRef.afterClosed().subscribe(
+      val => this.addJugador(val)
+    );
   }
 
   deleteJugador(_id: string, form: NgForm) {
@@ -128,11 +141,6 @@ export class JugadorComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
       });
-  }
-
-
-  compareFn(obj1: any, obj2: any) {
-    return obj1 && obj2 ? obj1._id === obj2._id : obj1 === obj2;
   }
 
   resetForm(form?: NgForm) {

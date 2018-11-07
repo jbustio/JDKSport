@@ -1,11 +1,11 @@
 <td-layout>
   <td-navigation-drawer flex sidenavTitle="JDKSportCG" logo="assets:teradata" name="Firstname Lastname" email="firstname.lastname@company.com">
     <mat-nav-list>
-      <a mat-list-item><mat-icon>home</mat-icon>Home</a>
-      <a mat-list-item><mat-icon>home</mat-icon>Ligas</a>
-      <a mat-list-item><mat-icon>home</mat-icon>Equipos</a>
-      <a mat-list-item><mat-icon>home</mat-icon>Juegos</a>
-      <a mat-list-item><mat-icon>home</mat-icon>Jugadores</a>
+        <a mat-list-item [routerLink]="[ '/liga' ]"><i class="icon-lacrosse"></i>Ligas</a>
+        <a mat-list-item [routerLink]="[ '/estadio' ]"><mat-icon>account_box</mat-icon>Estadios</a>
+        <a mat-list-item [routerLink]="[ '/equipo' ]"><mat-icon>account_box</mat-icon>Equipos</a>
+        <a mat-list-item [routerLink]="[ '/juego' ]"><mat-icon>account_box</mat-icon>Juegos</a>
+        <a mat-list-item [routerLink]="[ '/jugador' ]"><mat-icon>account_box</mat-icon>Jugadores</a>
     </mat-nav-list>
     <div td-navigation-drawer-menu>
       <mat-nav-list>
